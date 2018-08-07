@@ -61,12 +61,9 @@ net.Receive('vgui_show_stove', function(len)
 	    draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) // overriding the default pan
     end
     
-    local slot1_name = string.gsub(slot1_item, "ingr_", "")
-    slot1_name = string.gsub(slot1_name, "food_", "")
-    local slot2_name = string.gsub(slot2_item, "ingr_", "")
-    slot2_name = string.gsub(slot2_name, "food_", "")
-    local slot3_name = string.gsub(slot3_item, "ingr_", "")
-    slot3_name = string.gsub(slot3_name, "food_", "")
+    local slot1_name = RenameEnt(slot1_item)
+    local slot2_name = RenameEnt(slot2_item)
+    local slot3_name = RenameEnt(slot3_item)
 
     slot1:SetText(slot1_name)
     slot2:SetText(slot2_name)
@@ -99,45 +96,45 @@ net.Receive('vgui_show_stove', function(len)
     
     slot1.DoClick = function()
         print(slot1_item .. " " .. slot1:GetText())
-        if not IsActivated and slot1:GetText() != "empty" then
+        if not IsActivated and slot1:GetText() != "Empty" then
             
             net.Start("stove_remove_item")
             net.WriteString(slot1_item)
             net.WriteEntity(StoveEntity)
             net.WriteInt(1, 4)
             net.SendToServer()
-            slot1:SetText("empty")
+            slot1:SetText("Empty")
             slot1.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) end
         end
     end
 
     slot2.DoClick = function()
-        if not IsActivated and slot2:GetText() != "empty" then
+        if not IsActivated and slot2:GetText() != "Empty" then
             net.Start("stove_remove_item")
             net.WriteString(slot2_item)
             net.WriteEntity(StoveEntity)
             net.WriteInt(2, 4)
             net.SendToServer()
-            slot2:SetText("empty")
+            slot2:SetText("Empty")
             slot2.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) end
         end
     end
 
     slot3.DoClick = function()
-        if not IsActivated and slot3:GetText() != "empty" then
+        if not IsActivated and slot3:GetText() != "Empty" then
             net.Start("stove_remove_item")
             net.WriteString(slot3_item)
             net.WriteEntity(StoveEntity)
             net.WriteInt(3, 4)
             net.SendToServer()
-            slot3:SetText("empty")
+            slot3:SetText("Empty")
             slot3.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) end
         end
     end
 
-    if slot1_name != "empty" then slot1.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
-    if slot2_name != "empty" then slot2.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
-    if slot3_name != "empty" then slot3.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
+    if slot1_name != "Empty" then slot1.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
+    if slot2_name != "Empty" then slot2.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
+    if slot3_name != "Empty" then slot3.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
 
 
     frame:SetDeleteOnClose(true)
@@ -145,16 +142,16 @@ end)
 
 function ENT:Draw()
     self:DrawModel()
+end
 
+function ENT:DrawTranslucent()
     local x, y, z = self:GetAngles().x, LocalPlayer():EyeAngles().Yaw - 90, self:GetAngles().z + 90  
     local status = "Powered Off"
     
-    if (self:GetColor() != Color(255, 255, 255)) then
-        if (StoveCooking[self:EntIndex()]) then
-            if (StoveCooking[self:EntIndex()] - CurTime() >= 0) then
-                status = "Cooking... " .. tostring(math.ceil(StoveCooking[self:EntIndex()] - CurTime() )) .. "s" // Time left is rounded up and converted to a string for some reason it rounds down so i add 1
-            else table.remove(StoveCooking, self:EntIndex()) end
-        end
+    if (StoveCooking[self:EntIndex()]) then // check if tthis value is not nil
+        if (StoveCooking[self:EntIndex()] - CurTime() >= 0) then
+            status = "Cooking... " .. tostring(math.ceil(StoveCooking[self:EntIndex()] - CurTime() )) .. "s" // Time left is rounded up and converted to a string for some reason it rounds down so i add 1
+        else table.remove(StoveCooking, self:EntIndex()) end
     end
 
     //Sets position of 3D2D with a position and angle offset
@@ -162,10 +159,7 @@ function ENT:Draw()
         draw.RoundedBox(0, -75, 0, 150, 52, Color(0, 0, 0, 155))
         draw.RoundedBox(0, -75, 0, 150, 32, Color(0, 195, 250, 225))
         draw.SimpleText("Stove", "DermaLarge", 0, 0, Color( 255, 255, 255, 255 ),  TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
-        //if self.IsActivated then
-        //status = "Cooking... " .. tostring(math.ceil(self.FinishTime - CurTime())) .. "s"
         draw.SimpleText(status, "DermaDefaultBold", 0, 35, Color( 255, 255, 255, 255 ),  TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
-        //draw.RoundedBox(number cornerRadius, number x, number y, number width, number height, table color)
     cam.End3D2D()
 end
 
@@ -177,10 +171,14 @@ net.Receive("stove_update_3d2d", function(len)
     else table.remove(StoveCooking, StoveEntity:EntIndex()) end
 end)
 
---[[
-hook.Add("PlayerSay", "ChatHook", function(sender, text, team)
-    net.Start('vgui_show_stove')
-    net.Send(sender)
-    print(sender, text)
-end)
-]]--
+function RenameEnt(str)
+    str = string.gsub(str, "ingr_", "")
+    str = string.gsub(str, "food_", "")
+    str = string.gsub(str, "_", " ")
+    str = string.gsub(str, "(%a)([%w_']*)", titleCase)
+    return(str)
+end
+
+function titleCase( first, rest )
+   return first:upper()..rest:lower()
+end

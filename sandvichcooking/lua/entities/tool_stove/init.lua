@@ -113,24 +113,28 @@ function ToggleStove(StoveEntity, ply)
             StoveEntity.IsActivated = true
             StoveEntity.Cooking = "food_bread"
             StoveEntity.Items = {"empty", "empty", "empty"}
+            StoveEntity:EmitSound("ambient/levels/canals/toxic_slime_sizzle4.wav")
         elseif (recipe == "ingr_doughingr_eggingr_milk") then 
             print("[DEBUG] Cooking Pancakes.")
             StoveEntity.FinishTime = CurTime() + 15
             StoveEntity.IsActivated = true
             StoveEntity.Cooking = "food_pancakes"
             StoveEntity.Items = {"empty", "empty", "empty"}
+            StoveEntity:EmitSound("ambient/levels/canals/toxic_slime_sizzle4.wav")
         elseif (recipe == "emptyemptyingr_dough") then
             print("[DEBUG] Cooking Bagels.")
             StoveEntity.FinishTime = CurTime() + 10
             StoveEntity.IsActivated = true
             StoveEntity.Cooking = "food_bagel"
             StoveEntity.Items = {"empty", "empty", "empty"}
+            StoveEntity:EmitSound("ambient/levels/canals/toxic_slime_sizzle4.wav")
         elseif (recipe == "emptyingr_eggingr_oil") then
             print("[DEBUG] Cooking Bagels.")
             StoveEntity.FinishTime = CurTime() + 8
             StoveEntity.IsActivated = true
             StoveEntity.Cooking = "food_friedegg"
             StoveEntity.Items = {"empty", "empty", "empty"}
+            StoveEntity:EmitSound("ambient/levels/canals/toxic_slime_sizzle4.wav")
         else recipefound = false
         end
         if recipefound then

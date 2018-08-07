@@ -3,6 +3,9 @@ include("init.lua")
 
 function ENT:Draw()
     self:DrawModel()
+end
+
+function ENT:DrawTranslucent()
     local x, y, z = self:GetAngles().x, LocalPlayer():EyeAngles().Yaw - 90, 90
 
     //Sets position of 3D2D with a position and angle offset

@@ -38,8 +38,6 @@ function ENT:StartTouch(ent)
         if self.Items[i] == "empty" then arrayFull = false end
     end
     if (string.StartWith(ent:GetClass(), "ingr_") or string.StartWith(ent:GetClass(), "food_")) and not arrayFull and not self.IsActivated then
-        //self.IsBeingUsed = true
-        //self.FinishTime = self.FinishTime + ent.TargetTime
         if (self.Items[1] == "empty") then
             self.Items[1] = ent:GetClass()
         elseif (self.Items[2] == "empty") then
@@ -66,13 +64,23 @@ function ENT:Think()
         net.WriteInt(self.FinishTime, 8)
         net.Broadcast()
 
-        print(self.FinishTime)
+        
         self.IsActivated = false
         self.FinishTime = 0
         local food = ents.Create(self.Cooking)
         food:SetPos(self:GetForward())
         food:Spawn()
         
+        if (self.Cooking == "food_bonk_blutonium_berry") then
+            local explosion = ents.Create("env_explosion") //creates the explosion
+            explosion:SetPos(self:GetPos())
+            explosion:SetOwner(self)
+            explosion:Spawn()
+            explosion:SetKeyValue("iMagnitude", "100")
+            explosion:Fire("Explode", 0, 0)
+            explosion:EmitSound("weapons/explode4.wav")
+            self:Remove()
+        end
     end
 end
 
@@ -107,24 +115,34 @@ function ToggleBlender(StoveEntity, ply)
         local recipe = StoveEntity.Items[1] .. StoveEntity.Items[2] .. StoveEntity.Items[3] //concat all strings
         local recipefound = true
         print("[DEBUG] Recipe: " .. recipe)
-        if (recipe == "ingr_cocaextractingr_sugaringr_water") then // Checks the recipe names based on alphabetical order, so it doesn't matter which slot the item is placed
+        if (recipe == "ingr_coca_extractingr_sugaringr_water") then // Checks the recipe names based on alphabetical order, so it doesn't matter which slot the item is placed
             print("[DEBUG] Blending for Coke.")
             StoveEntity.FinishTime = CurTime() + 8
             StoveEntity.IsActivated = true
             StoveEntity.Cooking = "food_coke"
             StoveEntity.Items = {"empty", "empty", "empty"}
+            StoveEntity:EmitSound("plats/tram_motor_start.wav")
         elseif (recipe == "food_cherriesingr_sugaringr_water") then
             print("[DEBUG] Blending for Cherry Coke.")
             StoveEntity.FinishTime = CurTime() + 10
             StoveEntity.IsActivated = true
-            StoveEntity.Cooking = "food_cherrycoke"
+            StoveEntity.Cooking = "food_cherry_coke"
             StoveEntity.Items = {"empty", "empty", "empty"}
-        elseif (recipe == "food_cherriesfood_cherriesingr_water") then
-            print("[DEBUG] Blending for Cherry Coke.")
+            StoveEntity:EmitSound("plats/tram_motor_start.wav")
+        elseif (recipe == "ingr_sugaringr_sugaringr_water") then
+            print("[DEBUG] Blending for Pepsi.")
             StoveEntity.FinishTime = CurTime() + 12
             StoveEntity.IsActivated = true
-            StoveEntity.Cooking = "food_cherrycoke"
+            StoveEntity.Cooking = "food_pepsi"
             StoveEntity.Items = {"empty", "empty", "empty"}
+            StoveEntity:EmitSound("plats/tram_motor_start.wav")
+        elseif (recipe == "ingr_plutonium-239ingr_sugaringr_water") then
+            print("[DEBUG] Blending for Bonk! Atomic Punch (Blutonium Berry).")
+            StoveEntity.FinishTime = CurTime() + 30
+            StoveEntity.IsActivated = true
+            StoveEntity.Cooking = "food_bonk_blutonium_berry"
+            StoveEntity.Items = {"empty", "empty", "empty"}
+            StoveEntity:EmitSound("plats/tram_motor_start.wav")
         else recipefound = false
         end
         if recipefound then

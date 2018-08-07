@@ -1,7 +1,7 @@
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 
-ENT.PrintName = "Ingredient | Sugar"
+ENT.PrintName = "Food | Pepsi"
 ENT.Spawnable = true 
 ENT.Category = "Cooking"
 ENT.RenderGroup = RENDERGROUP_BOTH

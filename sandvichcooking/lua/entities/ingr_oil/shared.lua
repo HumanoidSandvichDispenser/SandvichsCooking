@@ -4,3 +4,4 @@ ENT.Base = "base_gmodentity"
 ENT.PrintName = "Ingredient | Oil"
 ENT.Spawnable = true 
 ENT.Category = "Cooking"
+ENT.RenderGroup = RENDERGROUP_BOTH
