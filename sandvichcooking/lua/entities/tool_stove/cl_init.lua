@@ -12,9 +12,7 @@ StoveCooking = {}
 net.Receive('vgui_show_stove', function(len)
     local StoveEntity = net.ReadEntity()
     local IsActivated = net.ReadBool()
-    local slot1_item = net.ReadString()
-    local slot2_item = net.ReadString()
-    local slot3_item = net.ReadString()
+    local slotitems = net.ReadTable()
     local slotcolors = net.ReadTable()
     local StoveVec = net.ReadVector()
 
@@ -95,9 +93,9 @@ net.Receive('vgui_show_stove', function(len)
         end
     end
 
-    slot1:SetText(RenameEnt(slot1_item))
-    slot2:SetText(RenameEnt(slot2_item))
-    slot3:SetText(RenameEnt(slot3_item))
+    slot1:SetText(RenameEnt(slotitems[1]))
+    slot2:SetText(RenameEnt(slotitems[2]))
+    slot3:SetText(RenameEnt(slotitems[3]))
 
     local button = vgui.Create("DButton", frame)
     button:SetPos(8, 188)
@@ -118,11 +116,9 @@ net.Receive('vgui_show_stove', function(len)
     end
     
     slot1.DoClick = function()
-        print(slot1_item .. " " .. slot1:GetText())
-        if not IsActivated and slot1:GetText() != "Empty" then
-            
+        if not IsActivated and slot1:GetText() != "Empty" then 
             net.Start("stove_remove_item")
-            net.WriteString(slot1_item)
+            net.WriteString(slotitems[1])
             net.WriteEntity(StoveEntity)
             net.WriteInt(1, 4)
             net.SendToServer()
@@ -134,7 +130,7 @@ net.Receive('vgui_show_stove', function(len)
     slot2.DoClick = function()
         if not IsActivated and slot2:GetText() != "Empty" then
             net.Start("stove_remove_item")
-            net.WriteString(slot2_item)
+            net.WriteString(slotitems[2])
             net.WriteEntity(StoveEntity)
             net.WriteInt(2, 4)
             net.SendToServer()
@@ -146,7 +142,7 @@ net.Receive('vgui_show_stove', function(len)
     slot3.DoClick = function()
         if not IsActivated and slot3:GetText() != "Empty" then
             net.Start("stove_remove_item")
-            net.WriteString(slot3_item)
+            net.WriteString(slotitems[3])
             net.WriteEntity(StoveEntity)
             net.WriteInt(3, 4)
             net.SendToServer()

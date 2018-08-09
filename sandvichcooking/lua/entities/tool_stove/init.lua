@@ -98,9 +98,7 @@ function ENT:Use(Activator, Caller)
         net.Start('vgui_show_stove')
         net.WriteEntity(self)
         net.WriteBool(self.IsActivated)
-        net.WriteString(self.Items[1])
-        net.WriteString(self.Items[2])
-        net.WriteString(self.Items[3])
+        net.WriteTable(self.Items)
         net.WriteTable(self.ItemColors)
         net.WriteVector(self:GetPos())
         net.Send(Activator)
@@ -161,7 +159,6 @@ end
 
 net.Receive("stove_remove_item", function(len, ply) // Removing item from stove
     local RemovedEntity = net.ReadString()
-    print(RemovedEntity)
     local Stove = net.ReadEntity()
     local Index = net.ReadInt(4)
     Stove.Items[Index] = "empty" // Clears the selected item inside the stove being used
