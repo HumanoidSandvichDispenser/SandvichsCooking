@@ -24,6 +24,8 @@ net.Receive('vgui_show_blender', function(len)
         draw.RoundedBox(0, 8, 24, 240, 2, Color(41, 148, 225))
     end
 
+    // Drawing Slots 1 - 3
+
     local slot1 = vgui.Create("DButton", frame)
     slot1:SetPos(8, 32)
     slot1:SetSize(240, 48)
@@ -38,7 +40,7 @@ net.Receive('vgui_show_blender', function(len)
         elseif (slotcolors[1] == 2) then
             draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
         elseif(slotcolors[1] == 3) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(40, 5, 190, 225))
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(20, 127, 210, 225))
         elseif(slotcolors[1] == 4) then
             draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
         elseif(slotcolors[1] == 5) then
@@ -60,7 +62,7 @@ net.Receive('vgui_show_blender', function(len)
         elseif (slotcolors[2] == 2) then
             draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
         elseif(slotcolors[2] == 3) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(40, 5, 190, 225))
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(20, 127, 210, 225))
         elseif(slotcolors[2] == 4) then
             draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
         elseif(slotcolors[2] == 5) then
@@ -82,7 +84,7 @@ net.Receive('vgui_show_blender', function(len)
         elseif (slotcolors[3] == 2) then
             draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
         elseif(slotcolors[3] == 3) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(40, 5, 190, 225))
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(20, 127, 210, 225))
         elseif(slotcolors[3] == 4) then
             draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
         elseif(slotcolors[3] == 5) then
@@ -159,7 +161,7 @@ function ENT:DrawTranslucent()
     local x, y, z = self:GetAngles().x, LocalPlayer():EyeAngles().Yaw - 90, self:GetAngles().z + 90  
     local status = "Powered Off"
 
-    if (BlenderBlending[self:EntIndex()]) then
+    if (BlenderBlending[self:EntIndex()]) then // check if this value is not nil
         if (BlenderBlending[self:EntIndex()] == -1) then // value of -1 represents that it is done cooking, and ready to collect
             status = "Press E to Collect"
         elseif (BlenderBlending[self:EntIndex()] - CurTime() >= 0) then
@@ -167,7 +169,7 @@ function ENT:DrawTranslucent()
         else table.remove(BlenderBlending, self:EntIndex()) end
     end
 
-    //Sets position of 3D2D with a position and angle offset
+    // Sets position of 3D2D with a position and angle offset
     cam.Start3D2D(Vector(self:GetPos().x, self:GetPos().y, self:GetPos().z + 32), Angle(0, y, 90), 0.1)
         draw.RoundedBox(0, -75, 0, 150, 52, Color(0, 0, 0, 155))
         draw.RoundedBox(0, -75, 0, 150, 32, Color(0, 195, 250, 225))
@@ -185,10 +187,11 @@ net.Receive("blender_update_3d2d", function(len)
 end)
 
 function RenameEnt(str)
+    // Removes entity prefixes
     str = string.gsub(str, "ingr_", "")
     str = string.gsub(str, "food_", "")
     str = string.gsub(str, "_", " ")
-    str = string.gsub(str, "(%a)([%w_']*)", titleCase)
+    str = string.gsub(str, "(%a)([%w_']*)", titleCase) // Capitalizes every first letter
     return(str)
 end
 
