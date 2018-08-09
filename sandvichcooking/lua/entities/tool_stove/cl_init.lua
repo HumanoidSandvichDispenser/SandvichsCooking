@@ -1,7 +1,9 @@
 include("shared.lua")
 
+/**** DEPRECATED ****
 GlobalStoveEntity = Entity(0) // Declaring with a filler value
 GlobalIsActivated = false
+*/
 
 local Drawn3D2D = false
 
@@ -13,82 +15,103 @@ net.Receive('vgui_show_stove', function(len)
     local slot1_item = net.ReadString()
     local slot2_item = net.ReadString()
     local slot3_item = net.ReadString()
+    local slotcolors = net.ReadTable()
     local StoveVec = net.ReadVector()
-
-    local power = "Off"
-    if IsActivated then
-        power = "On"
-    end
 
     local frame = vgui.Create("DFrame")
     frame:SetTitle("Stove - Options")
-    frame:SetSize(250,250)
+    frame:SetSize(256,244)
     frame:SetVisible(true)
     frame:Center()
     frame:MakePopup()
     frame.Paint = function( self, w, h )
 	    draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) // overriding the default panel
+        draw.RoundedBox(0, 8, 24, 240, 2, Color(41, 148, 225))
     end
 
-    local powerlabel = vgui.Create("DLabel", frame)
-    powerlabel:SetPos(40, 40)
-    powerlabel:SetText("Power: " .. power)
-
     local slot1 = vgui.Create("DButton", frame)
-    slot1:SetPos(40, 88)
-    slot1:SetSize(72, 24)
+    slot1:SetPos(8, 32)
+    slot1:SetSize(240, 48)
     slot1:SetText("empty")
     slot1:SetTextColor(Color(255, 255, 255))
+    slot1:SetFont("DermaLarge")
+    
     slot1.Paint = function( self, w, h )
-        draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) // overriding the default pan
+        draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 ))
+        if (slotcolors[1] == 1) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(125, 125, 125, 225))
+        elseif (slotcolors[1] == 2) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
+        elseif(slotcolors[1] == 3) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(40, 5, 190, 225))
+        elseif(slotcolors[1] == 4) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
+        elseif(slotcolors[1] == 5) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(175, 5, 2, 225))
+        end
     end
 
     local slot2 = vgui.Create("DButton", frame)
-    slot2:SetPos(40, 110)
-    slot2:SetSize(72, 24)
+    slot2:SetPos(8, 84)
+    slot2:SetSize(240, 48)
     slot2:SetText("empty")
     slot2:SetTextColor(Color(255, 255, 255))
+    slot2:SetFont("DermaLarge")
+
     slot2.Paint = function( self, w, h )
-	    draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) // overriding the default pan
+        draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 ))
+        if (slotcolors[2] == 1) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(125, 125, 125, 225))
+        elseif (slotcolors[2] == 2) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
+        elseif(slotcolors[2] == 3) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(40, 5, 190, 225))
+        elseif(slotcolors[2] == 4) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
+        elseif(slotcolors[2] == 5) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(175, 5, 2, 225))
+        end
     end
 
     local slot3 = vgui.Create("DButton", frame)
-    slot3:SetPos(40, 132)
-    slot3:SetSize(72, 24)
+    slot3:SetPos(8, 136)
+    slot3:SetSize(240, 48)
     slot3:SetText("empty")
     slot3:SetTextColor(Color(255, 255, 255))
-    slot3.Paint = function( self, w, h )
-	    draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) // overriding the default pan
-    end
-    
-    local slot1_name = RenameEnt(slot1_item)
-    local slot2_name = RenameEnt(slot2_item)
-    local slot3_name = RenameEnt(slot3_item)
+    slot3:SetFont("DermaLarge")
 
-    slot1:SetText(slot1_name)
-    slot2:SetText(slot2_name)
-    slot3:SetText(slot3_name)
+    slot3.Paint = function( self, w, h )
+        draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 ))
+        if (slotcolors[3] == 1) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(125, 125, 125, 225))
+        elseif (slotcolors[3] == 2) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
+        elseif(slotcolors[3] == 3) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(40, 5, 190, 225))
+        elseif(slotcolors[3] == 4) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
+        elseif(slotcolors[3] == 5) then
+            draw.RoundedBox( 0, 0, 0, 8, h, Color(175, 5, 2, 225))
+        end
+    end
+
+    slot1:SetText(RenameEnt(slot1_item))
+    slot2:SetText(RenameEnt(slot2_item))
+    slot3:SetText(RenameEnt(slot3_item))
 
     local button = vgui.Create("DButton", frame)
-    button:SetPos(172, 188)
-    button:SetSize(56, 24)
-    button:SetText("Toggle")
+    button:SetPos(8, 188)
+    button:SetSize(240, 48)
+    button:SetText("Cook!")
     button:SetTextColor(Color(255, 255, 255))
+    button:SetFont("DermaLarge")
     button.Paint = function( self, w, h )
 	    draw.RoundedBox( 0, 0, 0, w, h, Color( 41, 128, 185, 250 ) )
     end
 
 
 
-    button.DoClick = function() 
-        GlobalStoveEntity = StoveEntity
-        if IsActivated then
-            power = "Off" else power = "On"
-        end
-        powerlabel:SetText("Power: " .. power)
-        IsActivated = StoveEntity.IsActivated
-        GlobalIsActivated = IsActivated
-
+    button.DoClick = function()
         net.Start("stove_toggle")
         net.WriteEntity(StoveEntity)
         net.SendToServer()
@@ -104,7 +127,7 @@ net.Receive('vgui_show_stove', function(len)
             net.WriteInt(1, 4)
             net.SendToServer()
             slot1:SetText("Empty")
-            slot1.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) end
+            slot1.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 )) end
         end
     end
 
@@ -116,7 +139,7 @@ net.Receive('vgui_show_stove', function(len)
             net.WriteInt(2, 4)
             net.SendToServer()
             slot2:SetText("Empty")
-            slot2.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) end
+            slot2.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 )) end
         end
     end
 
@@ -128,14 +151,9 @@ net.Receive('vgui_show_stove', function(len)
             net.WriteInt(3, 4)
             net.SendToServer()
             slot3:SetText("Empty")
-            slot3.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 25, 25, 220 ) ) end
+            slot3.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 )) end
         end
     end
-
-    if slot1_name != "Empty" then slot1.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
-    if slot2_name != "Empty" then slot2.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
-    if slot3_name != "Empty" then slot3.Paint = function( self, w, h ) draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 150, 190, 255 ) ) end end
-
 
     frame:SetDeleteOnClose(true)
 end)
@@ -149,9 +167,12 @@ function ENT:DrawTranslucent()
     local status = "Powered Off"
     
     if (StoveCooking[self:EntIndex()]) then // check if tthis value is not nil
-        if (StoveCooking[self:EntIndex()] - CurTime() >= 0) then
+        print(StoveCooking[self:EntIndex()])
+        if (StoveCooking[self:EntIndex()] == -1) then // -1 is a special value that indicates that it is finished cooking,
+            status = "Press E to Collect"
+        elseif (StoveCooking[self:EntIndex()] - CurTime() >= 0) then
             status = "Cooking... " .. tostring(math.ceil(StoveCooking[self:EntIndex()] - CurTime() )) .. "s" // Time left is rounded up and converted to a string for some reason it rounds down so i add 1
-        else table.remove(StoveCooking, self:EntIndex()) end
+        end
     end
 
     //Sets position of 3D2D with a position and angle offset
@@ -160,15 +181,16 @@ function ENT:DrawTranslucent()
         draw.RoundedBox(0, -75, 0, 150, 32, Color(0, 195, 250, 225))
         draw.SimpleText("Stove", "DermaLarge", 0, 0, Color( 255, 255, 255, 255 ),  TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
         draw.SimpleText(status, "DermaDefaultBold", 0, 35, Color( 255, 255, 255, 255 ),  TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
-    cam.End3D2D()
+    cam.End3D2D()   
 end
 
 net.Receive("stove_update_3d2d", function(len) 
     local StoveEntity = net.ReadEntity()
     local IsCooking = net.ReadBool()
-    local Time = net.ReadInt(8)
-    if IsCooking then table.insert(StoveCooking, StoveEntity:EntIndex(), Time)
-    else table.remove(StoveCooking, StoveEntity:EntIndex()) end
+    local Time = net.ReadFloat()
+    if IsCooking then StoveCooking[StoveEntity:EntIndex()] = Time
+    elseif (StoveCooking[StoveEntity:EntIndex()]) then StoveCooking[StoveEntity:EntIndex()] = nil
+    end
 end)
 
 function RenameEnt(str)

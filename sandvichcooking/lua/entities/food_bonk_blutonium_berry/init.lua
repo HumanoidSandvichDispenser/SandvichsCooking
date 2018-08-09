@@ -1,17 +1,17 @@
 AddCSLuaFile("shared.lua")
+AddCSLuaFile( "cl_init.lua" )
 
 include("shared.lua")
 
 function ENT:Initialize()
-    self:SetModel("models/weapons/c_models/c_energy_drink/c_energy_drink.mdl")
-    self:SetSkin(1)
-    self:SetColor(Color(255, 255, 255))
-    self:PhysicsInit(SOLID_VPHYSICS)
-    //self:MoveType(MOVETYPE_VPHYSICS) .. TIL that double shash comments are a thing in lua
-    self:SetSolid(SOLID_VPHYSICS)
-    self.IsRunning = false
-    self.Quality = 50
-    self.ItemName = "Bonk! Blutonium Berry"
+    if SERVER then
+        self:SetModel("models/weapons/c_models/c_energy_drink/c_energy_drink.mdl")
+        self:SetSkin(1)
+        self:SetColor(Color(255, 255, 255))
+        self:PhysicsInit(SOLID_VPHYSICS)
+        self:SetSolid(SOLID_VPHYSICS)
+        self:SetUseType(SIMPLE_USE)
+    end
 
     local phys = self:GetPhysicsObject()
     if phys:IsValid() then
