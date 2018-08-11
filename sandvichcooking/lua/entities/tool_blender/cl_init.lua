@@ -35,16 +35,17 @@ net.Receive('vgui_show_blender', function(len)
     
     slot1.Paint = function( self, w, h )
         draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 ))
+        if not slot1:IsHovered() then w = 8 end
         if (slotcolors[1] == 1) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(125, 125, 125, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(125, 125, 125, 225))
         elseif (slotcolors[1] == 2) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(0, 195, 250, 225))
         elseif(slotcolors[1] == 3) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(20, 127, 210, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(20, 127, 210, 225))
         elseif(slotcolors[1] == 4) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(244, 68, 224, 225))
         elseif(slotcolors[1] == 5) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(175, 5, 2, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(175, 5, 2, 225))
         end
     end
 
@@ -57,16 +58,17 @@ net.Receive('vgui_show_blender', function(len)
 
     slot2.Paint = function( self, w, h )
         draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 ))
+        if not slot2:IsHovered() then w = 8 end
         if (slotcolors[2] == 1) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(125, 125, 125, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(125, 125, 125, 225))
         elseif (slotcolors[2] == 2) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(0, 195, 250, 225))
         elseif(slotcolors[2] == 3) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(20, 127, 210, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(20, 127, 210, 225))
         elseif(slotcolors[2] == 4) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(244, 68, 224, 225))
         elseif(slotcolors[2] == 5) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(175, 5, 2, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(175, 5, 2, 225))
         end
     end
 
@@ -79,16 +81,17 @@ net.Receive('vgui_show_blender', function(len)
 
     slot3.Paint = function( self, w, h )
         draw.RoundedBox( 0, 0, 0, w, h, Color( 35, 35, 35, 220 ))
+        if not slot3:IsHovered() then w = 8 end
         if (slotcolors[3] == 1) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(125, 125, 125, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(125, 125, 125, 225))
         elseif (slotcolors[3] == 2) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(0, 195, 250, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(0, 195, 250, 225))
         elseif(slotcolors[3] == 3) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(20, 127, 210, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(20, 127, 210, 225))
         elseif(slotcolors[3] == 4) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(244, 68, 224, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(244, 68, 224, 225))
         elseif(slotcolors[3] == 5) then
-            draw.RoundedBox( 0, 0, 0, 8, h, Color(175, 5, 2, 225))
+            draw.RoundedBox( 0, 0, 0, w, h, Color(175, 5, 2, 225))
         end
     end
 
@@ -105,8 +108,6 @@ net.Receive('vgui_show_blender', function(len)
     button.Paint = function( self, w, h )
 	    draw.RoundedBox( 0, 0, 0, w, h, Color( 41, 128, 185, 250 ) )
     end
-
-
 
     button.DoClick = function() 
         net.Start("blender_toggle")
