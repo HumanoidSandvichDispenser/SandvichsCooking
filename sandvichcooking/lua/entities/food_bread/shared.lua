@@ -10,3 +10,4 @@ ENT.IsRunning = false
 ENT.Quality = 10
 ENT.ItemName = "Bread"
 ENT.Rarity = 1
+ENT.UseSound = "sandvichcooking/food/eating-normal.wav"

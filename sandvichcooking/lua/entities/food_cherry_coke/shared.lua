@@ -10,3 +10,4 @@ ENT.IsRunning = false
 ENT.Quality = 10
 ENT.ItemName = "Cherry Coke"
 ENT.Rarity = 3
+ENT.UseSound = "sandvichcooking/food/drinking-soda-can.wav"

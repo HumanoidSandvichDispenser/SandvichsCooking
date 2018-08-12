@@ -3,6 +3,10 @@ AddCSLuaFile( "cl_init.lua" )
 
 include("shared.lua")
 
+if SERVER then
+    util.AddNetworkString("playsound_client")    
+end
+
 function ENT:Initialize()
     if SERVER then
         self:SetModel("models/weapons/c_models/c_energy_drink/c_energy_drink.mdl")
@@ -21,5 +25,8 @@ end
 
 function ENT:Use(Activator, Caller)
     Caller:SetHealth(Caller:Health() + self.Quality)
+    net.Start("playsound_client")
+    net.WriteString(self.UseSound)
+    net.Send(Activator)
     self:Remove()
 end

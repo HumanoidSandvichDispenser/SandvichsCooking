@@ -10,3 +10,4 @@ ENT.IsRunning = false
 ENT.Quality = 12
 ENT.ItemName = "Fried Egg"
 ENT.Rarity = 1
+ENT.UseSound = "sandvichcooking/food/eating-normal.wav"
