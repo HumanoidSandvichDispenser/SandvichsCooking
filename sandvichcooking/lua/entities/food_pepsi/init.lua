@@ -37,5 +37,5 @@ function ENT:Use(Activator, Caller)
 end
 
 function ENT:OnTakeDamage(damage)
-    self.DamageTaken = self.DamageTaken + damage
+    self.DamageTaken = self.DamageTaken + damage:GetDamage()
 end
