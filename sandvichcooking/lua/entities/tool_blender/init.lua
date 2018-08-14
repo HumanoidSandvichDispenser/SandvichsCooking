@@ -154,6 +154,11 @@ function ToggleBlender(StoveEntity, ply)
             StoveEntity.FinishTime = CurTime() + 30
             StoveEntity.Cooking = "food_bonk_blutonium_berry"
             StoveEntity:EmitSound("plats/tram_motor_start.wav")
+        elseif (recipe == "food_cherriesingr_natural_uraniumingr_water") then
+            print("[DEBUG] Blending for Bonk! Atomic Punch (Chery Fission).")
+            StoveEntity.FinishTime = CurTime() + 30
+            StoveEntity.Cooking = "food_bonk_chery_fission"
+            StoveEntity:EmitSound("plats/tram_motor_start.wav")
         else recipefound = false
         end
         if recipefound then
