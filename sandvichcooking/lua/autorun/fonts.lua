@@ -15,6 +15,7 @@ if CLIENT then
         additive = false,
         outline = true,
     })
+    
     surface.CreateFont("3D2DLabel", {
         font = "Verdana",
         size = 25,
