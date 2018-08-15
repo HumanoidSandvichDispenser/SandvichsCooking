@@ -1,6 +1,6 @@
 if CLIENT then
     surface.CreateFont("3D2DTitle", {
-        font = "Trebuchet",
+        font = "Roboto",
         size = 55,
         weight = 500,
         blursize = 0,
@@ -17,7 +17,7 @@ if CLIENT then
     })
 
     surface.CreateFont("3D2DLabel", {
-        font = "Trebuchet",
+        font = "Roboto",
         size = 25,
         weight = 350,
         blursize = 0,
