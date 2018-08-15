@@ -1,5 +1,5 @@
 if CLIENT then
-    surface.CreateFont("3D2D Title", {
+    surface.CreateFont("3D2DTitle", {
         font = "Verdana",
         size = 75,
         weight = 500,
@@ -15,7 +15,7 @@ if CLIENT then
         additive = false,
         outline = true,
     })
-    surface.CreateFont("3D2D Label", {
+    surface.CreateFont("3D2DLabel", {
         font = "Verdana",
         size = 25,
         weight = 350,
