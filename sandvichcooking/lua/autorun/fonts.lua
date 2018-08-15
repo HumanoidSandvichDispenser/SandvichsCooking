@@ -1,8 +1,8 @@
 if CLIENT then
     surface.CreateFont("3D2DTitle", {
         font = "Roboto",
-        size = 55,
-        weight = 500,
+        size = 255,
+        weight = 750,
         blursize = 0,
         scanlines = 0,
         antialias = true,
@@ -13,12 +13,12 @@ if CLIENT then
         rotary = false,
         shadow = false,
         additive = false,
-        outline = true,
+        outline = false,
     })
 
     surface.CreateFont("3D2DLabel", {
         font = "Roboto",
-        size = 25,
+        size = 70,
         weight = 350,
         blursize = 0,
         scanlines = 0,
