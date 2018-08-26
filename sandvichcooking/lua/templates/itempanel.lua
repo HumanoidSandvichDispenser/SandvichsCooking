@@ -22,7 +22,7 @@ if CLIENT then
         end
 
         surface.SetFont("3D2DTitle")
-        if (string.StartWith(self:GetClass(), "food_")) then description = self.Quality .. " HP" .. " | " .. description end
+        if (string.StartWith(self:GetClass(), "food_")) then description = "+" .. self.Quality .. " HP" .. " | " .. description end
         if (string.StartWith(self:GetClass(), "ingr_")) then description = description .. " Ingredient" end
         if (string.StartWith(self:GetClass(), "tool_")) then description = description .. " Tool" end
         local itemlen = select(1, surface.GetTextSize(self.ItemName))
