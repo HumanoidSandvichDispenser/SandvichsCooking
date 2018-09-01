@@ -2,7 +2,7 @@
 
 <font size="4"> A Garry's Mod addon for basic cooking </font>
 
-Sandvich's Cooking Addon v0.1.3
+Sandvich's Cooking Addon v0.1.5
 <font size="1">by Humanoid Sandvich Dispenser https://steamcommunity.com/id/sandvichdispensingunit/</font>
 Last Updated 8/11/2018
 
