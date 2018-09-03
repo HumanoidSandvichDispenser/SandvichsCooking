@@ -12,9 +12,9 @@
 
 // Serverside Code
 if SERVER then
-    util.AddNetworkString(self.NetworkDisplayPanel)
-    util.AddNetworkString(self.NetworkButtonPress)
-    util.AddNetworkString(self.NetworkUpdate3D2D)
+    util.AddNetworkString("cooker_showvgui")
+    util.AddNetworkString("cooker_buttonpress")
+    util.AddNetworkString("cooker_update3d2d")
     function ENT:Initialize()
         
     end
@@ -22,7 +22,7 @@ end
 
 // Clientside Code
 if CLIENT then
-    net.Receive(self.NetworkDisplayPanel, 
+    net.Receive("cooker_showvgui", 
     function()
         
         local frame = vgui.Create("DFrame")
