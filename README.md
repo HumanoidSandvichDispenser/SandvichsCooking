@@ -4,7 +4,7 @@
 
 Sandvich's Cooking Addon v0.1.6
 <font size="1">by Humanoid Sandvich Dispenser https://steamcommunity.com/id/sandvichdispensingunit/</font>
-Last Updated 8/11/2018
+Last Updated 9/6/2018
 
 # About
 Since it is difficult to publish onto the Garry's Mod Workshop, I have decided to release it here. Because this addon is currently in-development, GitHub would be a perfect place to put this.
