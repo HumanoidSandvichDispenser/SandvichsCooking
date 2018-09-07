@@ -6,8 +6,8 @@ include("../../templates/containerpanel.lua")
 
 function ENT:Initialize()
     if SERVER then
-        self:SetModel("models/props_c17/metalpot001a.mdl")
-        self:SetColor(Color(245, 225, 225))
+        self:SetModel("models/hunter/plates/plate075x1.mdl")
+        self:SetColor(Color(155, 155, 155))
         self:PhysicsInit(SOLID_VPHYSICS)
         self:SetSolid(SOLID_VPHYSICS)
         self:SetUseType(SIMPLE_USE)

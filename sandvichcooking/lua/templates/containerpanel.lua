@@ -126,16 +126,21 @@ if SERVER then
             //self.IsBeingUsed = true
             //self.FinishTime = self.FinishTime + ent.TargetTime
             if (self.Items[1] == "empty") then
+                self.Children[1] = ent
                 self.Items[1] = ent:GetClass()
                 self.ItemColors[1] = ent.Rarity
             elseif (self.Items[2] == "empty") then
+                self.Children[2] = ent
                 self.Items[2] = ent:GetClass()
                 self.ItemColors[2] = ent.Rarity
             elseif (self.Items[3] == "empty") then
+                self.Children[3] = ent
                 self.Items[3] = ent:GetClass()
                 self.ItemColors[3] = ent.Rarity
             end
-            ent:Remove()
+
+            if self.TouchHandleType == 0 then ent:Remove()
+            elseif self.TouchHandleType == 1 then ent:SetParent(self) end
 
             net.Start("container_update3d2d")
             net.WriteEntity(self)
@@ -166,6 +171,7 @@ if SERVER then
             net.WriteBool(self.IsActivated)
             net.WriteTable(self.Items)
             net.WriteTable(self.ItemColors)
+            net.WriteTable(self.Children)
             net.Send(Activator)
         end
     end
@@ -180,6 +186,9 @@ if SERVER then
         local RemovedEntity = net.ReadString()
         local Container = net.ReadEntity()
         local Index = net.ReadInt(4)
+        local child = net.ReadEntity()
+        if child then child:Remove(); Container.Children[Index] = nil end
+
         Container.Items[Index] = "empty" // Clears the selected item inside the stove being used
         Container.ItemColors[Index] = 0
         local newent = ents.Create(RemovedEntity)

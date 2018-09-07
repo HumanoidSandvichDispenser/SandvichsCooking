@@ -24,7 +24,11 @@ end
 if CLIENT then
     net.Receive("cooker_showvgui", 
     function()
-        
+        local Cooker = net.ReadEntity()
+        local IsActivated = net.ReadBool()
+        local slotitems = net.ReadTable()
+        local slotcolors = net.ReadTable()
+
         local frame = vgui.Create("DFrame")
         frame:SetTitle(self.ItemName .. " - Options")
         frame:SetSize(256,244)
