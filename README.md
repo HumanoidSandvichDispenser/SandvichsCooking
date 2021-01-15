@@ -1,6 +1,6 @@
 ## SandvichsCooking
 
-** ABANDONED **
+**\*\*ABANDONED\*\***
 
 <font size="4"> A Garry's Mod addon for basic cooking </font>
 
